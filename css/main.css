@@ -1,19 +1,21 @@
-@import url(https://fonts.googleapis.com/css?family=Merriweather:400,300,400italic,700);
-
+/*@import url(https://fonts.googleapis.com/css?family=Merriweather:400,300,400italic,700);
+@import url(https://fonts.googleapis.com/css?family=Lato);*/
+@import url(https://fonts.googleapis.com/css?family=Josefin+Slab);
+@import url(https://fonts.googleapis.com/css?family=Rosario:400,400italic);
 
 /*==================================================*/
 /*	General Page Styles								*/
 /*==================================================*/
 
 body {
-	font-family     : 'Lato', 'Helvetica Neue', Helvetica, sans-serif;
+	font-family     : 'Rosario', 'Helvetica Neue', Helvetica, sans-serif;
 	font-size       : 16px;
 	font-weight     : 300;
 	background-image: url("../img/life-in-stone.jpg");
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Merriweather', 'Times New Roman', serif;
+	font-family: 'Josefin Slab', 'Times New Roman', serif;
 }
 
 h2 {
@@ -79,4 +81,17 @@ svg {
 	height: 75px;
 	font-size: 25px;
 	margin-top: 40px;
+}
+
+#main {
+	width: 70%;
+	background-color: #EEEEEE;
+	margin: 0px auto;
+	min-height: 900px;
+	padding: 40px;
+}
+
+.form-sections {
+	border: 2px solid #666666;
+	margin: 20px;
 }

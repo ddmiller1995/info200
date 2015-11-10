@@ -19,10 +19,10 @@ $(document).ready(function() {
 		$("#work-options").css("display","block");
 	});
 
-	$("#hire-button").click(function() {
-		$(this).css("display","none");
-		$("#hire-options").css("display","block");
-	});
+	// $("#hire-button").click(function() {
+	// 	$(this).css("display","none");
+	// 	$("#hire-options").css("display","block");
+	// });
 
 
 });
