@@ -17,7 +17,7 @@
     <meta name="author" content="Dakota Miller">
     <title>Connect</title>
 
-    <link rel="icon" href="">
+    <link rel="icon" href="img/favicon.ico">
 
     <!-- Bootstrap Stylesheet -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -28,14 +28,17 @@
     <!-- My Styleseet -->
     <link rel="stylesheet" href="css/main.css">
 
+    <!-- load angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+
 </head>
 <body>
     
     <nav id="navbar">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Get Started</a></li>
-            <li><a href="#">About Us</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="jobs.html">Get Started</a></li>
+            <li><a href="about.html">About Us</a></li>
             <span id="login">
                 <li><button class="btn btn-default">Signup</button></li>
                 <li><button class="btn btn-default">Login</button></li>
@@ -47,15 +50,16 @@
         <h1>Create your listing</h1>
 
         <form id="submit">
+            <div class="row" id="start">
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title">
 
-            <label for="title">Title:</label>
-            <input type="text" name="title">
-
-            <input type="radio" name="choice" value="volunteer" checked>Volunteer
-            <input type="radio" name="choice" value="paid" checked>Paid
+                <input type="radio" name="choice" value="volunteer" checked>Volunteer
+                <input type="radio" name="choice" value="paid" checked>Paid
+            </div>
             <div class="row">
-                <div class="col-md-6 form-sections">
-
+                <div class="col-md-6">
+                <div class="form-sections">
                     <h2>Contact Information</h2>
                     <div class="form-group">
                         <label for="name">Name:</label>
@@ -70,9 +74,9 @@
                         <input type="text" name="phone">
                     </div>
                 </div>
-
-                <div class="col-md-6 form-sections">
-
+                </div>
+                <div class="col-md-6">
+                <div class=" form-sections">
                     <h2>Details</h2>
                     <div class="form-group">
                         <label for="date">Date of job:</label>
@@ -82,21 +86,22 @@
                         <label for="time">Time of job (if applicable)</label>
                         <input type="text" name="time">
                     </div>
-                    <div class="form-group"
+                    <div class="form-group">
                         <label for="payment">Payment:</label>
                         <input type="text" name="payment">
                     </div>
                 </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea name="description"></textarea>
+            <div class="form-group" id="description-section">
+                <h2>Description:</h2>
+                <textarea id="description" name="description"></textarea>
             </div>
             <button class="btn btn-default btn-large" type="submit" id="submit">Submit</button>
         </form>
     </div>
 
-        <!-- jQuery library -->
+    <!-- jQuery library -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
     <!-- My script -->
