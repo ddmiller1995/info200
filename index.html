@@ -5,7 +5,7 @@
 -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ConnectApp">
 <head>
     <meta charset="utf-8">
 
@@ -28,17 +28,18 @@
     <!-- My Styleseet -->
     <link rel="stylesheet" href="css/main.css">
 
-    <!-- load angular -->
+    <!-- Angular Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
 
 </head>
-<body id="welcome-background">
+<body>
     
     <nav id="navbar">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="jobs.html">Get Started</a></li>
-            <li><a href="about.html">About Us</a></li>
+            <li><a ui-sref="home">Home</a></li>
+            <li><a ui-sref="about">About Us</a></li>
+            <li><a ui-sref="jobs">Find Opportunities</a></li>
+            <li><a ui-sref="form">Find Workers</a></li>
             <span id="login">
                 <li><button class="btn btn-default">Signup</button></li>
                 <li><button class="btn btn-default">Login</button></li>
@@ -46,47 +47,12 @@
         </ul>
     </nav>
 
-    <div id="welcome" class="container">
-        <h1>Welcome to Connect!</h1>
-        <div class="row">
-            <h2>Start Here:</h2>
-            <div class="col-sm-6">
-                <button id="work-button" class="btn btn-default">Find opportunities to...</button>
-                <div id="work-options" style="display:none">
-                    <a href="jobs.html"><button class="btn btn-default">Volunteer</button></a>
-                    <a href="jobs.html"><button class="btn btn-default">Work</button></a>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <a href="form.html"><button id="hire-button" class="btn btn-default">Find Workers</button></a>
-<!--                 <div id="hire-options" style="display:none">
-                    <button class="btn btn-default">Volunteers</button>
-                    <button class="btn btn-default">Employees</button>
-                </div> -->
-            </div>
-        </div>
-    </div>
+    <div ui-view></div>
 
-    <!-- <div class="dropup">
-        <button class="btn btn-default dropdown-toggle" type="button" id="select-background" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Select Background
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="select-background">
-            <li><a href="#">dock</a></li>
-            <li><a href="#">life-in-stone</a></li>
-            <li><a href="#">forst-path-3</a></li>
-            <li><a href="#">low-poly-hillside</a></li>
-            <li><a href="#">sky-over-forest</a></li>
-            <li><a href="#">background-wood</a></li>
-            <li><a href="#">sepia-cityscape</a></li>
-            <li><a href="#">mountain-cat</a></li>
-
-        </ul>
-    </div> -->
-
-    <!-- jQuery library -->
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- External Libraries -->
+    <script src="lib/angular-ui-router.min.js"></script>
+    <script src="lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-sanitize.js"></script>
 
     <!-- My script -->
     <script src="js/main.js"></script>

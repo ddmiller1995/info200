@@ -1,0 +1,31 @@
+<div id="details-section" class="main container-fluid">
+    <h1>Job Listing</h1>
+
+    <h2>{{job.title}}</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>About Listing</h3>
+            <dl>
+                <dt>Date of Job</dt>
+                <dd>{{job.date}}</dd>
+                <dt>Category</dt>
+                <dd>{{job.categories[0]}}</dd>
+                <dt>Description</dt>
+                <dd>{{job.description}}</dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <h3>Contact Information</h3>
+            <dl>
+                <dt>Name:</dt>
+                <dd>{{job.contact.name}}</dd>
+                <dt>Email</dt>
+                <dd>{{job.contact.email}}</dd>
+                <dt>Phone</dt>
+                <dd>{{job.contact.phone}}</dd>
+            </dl>
+        </div>
+    </div>
+    <button ui-sref="jobs" class="btn btn-default btn-lg">See other listings</button>
+</div>

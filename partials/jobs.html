@@ -1,0 +1,34 @@
+<div id="jobs-section" class="main container-fluid">
+    <h1 style="display:inline-block">Select a job</h1>
+    <div id="work-controls" class="form-inline pull-right">
+        <span id="work-options">
+            <input type="radio" name="choice" value="volunteer" ng-click="mode='volunteer'" checked>Volunteer
+            <input type="radio" name="choice" value="paid" ng-click="mode='paid'">Paid
+        </span>
+        <label for="search"><i class="fa fa-search"></i></label>
+        <input name="query" placeholder="Search" id="search" ng-model="searchQuery">
+    </div>
+
+    <table id="jobs" class="table">
+        <tr>
+            <th>Job Title</th>
+            <th>Date of Job</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th ng-if="mode=='paid'">Payment</th>
+        </tr>
+        <tr ng-if="mode=='paid'" ng-repeat="job in paid | filter:searchQuery">
+            <td><a ui-sref="jobs({id: job.id})">{{job.title}}</a></td>
+            <td>{{job.date | date:'shortDate'}}</td>
+            <td>{{job.categories[0]}}</td>
+            <td>{{job.description}}</td>
+            <td>{{job.payment}}</td>
+        </tr>
+        <tr ng-if="mode=='volunteer'" ng-repeat="job in volunteer | filter:searchQuery">
+            <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
+            <td>{{job.date | date:'shortDate'}}</td>
+            <td>{{job.categories[0]}}</td>
+            <td>{{job.description}}</td>
+        </tr>
+    </table>
+</div>

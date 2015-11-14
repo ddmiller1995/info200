@@ -1,0 +1,54 @@
+[
+  {
+    "id": "1",
+    "title": "Lawn Mowing",
+    "date": "11/2/14",
+    "description": "Mow a lawn for a little old lady",
+    "payment": "none",
+    "categories": ["Yard Work", "Physical Labor"],
+    "contact": {
+      "name": "Betsy O'Neil",
+      "email": "betsy50@aol.com",
+      "phone": "1-555-555-5555"
+    }
+  },
+  {
+    "id": "2",
+    "title": "Camp Korey Grow Dinner Waiter",
+    "date": "10/20/2015",
+    "description": "Help support a local charity that benefits children with life altering illneseses at the annual Grow Dinner. Help our event go smoothly by helping the chefs serve food",
+    "payment": "none",
+    "categories": ["Physical Labor", "Food Handling", "Children"],
+    "contact": {
+      "name": "Alaina Smalls",
+      "email": "smalls.alaina@campkorey.com",
+      "phone": "1-444-444-4444"
+    }
+  },
+  {
+    "id": "3",
+    "title": "UW City Church Feed for Homeless",
+    "date": "11/03/2015",
+    "description": "Come help out at the UW City Church on the first Tuesday of every month! We will be serving dinner to homeless people in the U-District area. Come support your community!",
+    "payment": "none",
+    "categories": ["Food Handling"],
+    "contact": {
+      "name": "Melany Watkins",
+      "email": "jesusisthesavior@comcast.net",
+      "phone": "1-537-874-9680"
+    }
+  },
+  {
+    "id": "4",
+    "title": "Computer Help",
+    "date": "1/1/2016",
+    "description": "My computer no longer works and I don't know why. It simply won't boot up. I need it to do stuff.",
+    "payment": "$100",
+    "categories": ["Computers", "IT"],
+    "contact": {
+      "name": "John Simon",
+      "email": "j.simon@gmail.com",
+      "phone": "1-555-121-7878"
+    }
+  }
+]
