@@ -18,7 +18,7 @@
             <th ng-if="mode=='paid'">Payment</th>
         </tr>
         <tr ng-if="mode=='paid'" ng-repeat="job in paid | filter:searchQuery">
-            <td><a ui-sref="jobs({id: job.id})">{{job.title}}</a></td>
+            <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
             <td>{{job.date | date:'shortDate'}}</td>
             <td>{{job.categories[0]}}</td>
             <td>{{job.description}}</td>
