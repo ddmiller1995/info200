@@ -11,10 +11,10 @@
 
     <table id="jobs" class="table">
         <tr>
-            <th>Job Title</th>
-            <th>Date of Job</th>
-            <th>Category</th>
-            <th>Description</th>
+            <th class="col-md-2">Job Title</th>
+            <th class="col-md-1">Date of Job</th>
+            <th class="col-md-1">Category</th>
+            <th class="col-md-8">Description</th>
             <th ng-if="mode=='paid'">Payment</th>
         </tr>
         <tr ng-if="mode=='paid'" ng-repeat="job in paid | filter:searchQuery">

@@ -57,6 +57,11 @@ a:hover {
 	font-size       : 20px;
 }
 
+#navbar img {
+	height: 1em;
+	margin-right: 10px;
+}
+
 #navbar ul {
 	padding: 0px;
 	margin : 0px;
@@ -67,7 +72,7 @@ a:hover {
 	padding: 0.5em 0.7em;
 }
 
-#navbar a {
+#navbar a { 	
 	color          : white;
 	font-variant   : small-caps;
 	text-decoration: none;
@@ -106,6 +111,11 @@ a:hover {
 	color: white;
 }
 
+#welcome img {
+	height: 1em;
+	margin-right: 20px;
+}
+
 
 #welcome-background {
 	width: 100%;
@@ -116,7 +126,7 @@ a:hover {
 	left: 0px;
 	background-image: url("../img/neighborhood1.jpg");
 	background-repeat: no-repeat;
-	background-size: 100%;
+	background-size: cover;
 }
 
 #welcome button {
@@ -179,6 +189,10 @@ a:hover {
 
 #work-options input[type=radio] {
 	margin-right: 10px;
+}
+
+#work-options input[value="paid"] {
+	margin-left: 5%; 
 }
 
 /*===== Job Details Page =====*/
