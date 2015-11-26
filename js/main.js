@@ -135,7 +135,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 .factory('SystemService', function() {
     var service = {};
-    service.ref = new Firebase("https://fire-store.firebaseio.com");
+    service.ref = new Firebase("https://connect-info200.firebaseio.com/");
     return service;
 })
 
