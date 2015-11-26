@@ -7,7 +7,7 @@
 'use strict';
 
 // Creates the Angular module and initializes the different states
-angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap'])
+angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'firebase'])
 .config(function($stateProvider, $urlRouterProvider){
 	$stateProvider
 		.state('home', {
@@ -39,6 +39,23 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap'])
 	$urlRouterProvider.otherwise('/');
 
 })
+
+.controller('IndexCtrl', ['$scope', '$http', '$uibModal', function($scope, $http, $uibModal) {
+	$scope.signup = function() {
+		var modalInstance = $uibModal.open({
+			templateUrl: "partials/signup.html",
+			controller: "ModalCtrl",
+			scope: $scope
+		});
+	}
+	$scope.login = function() {
+		var modalInstance = $uibModal.open({
+			templateUrl: "partials/login.html",
+			controller: "ModalCtrl",
+			scope: $scope
+		});
+	}	
+}])
 
 // Controller for home page
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
@@ -84,7 +101,6 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap'])
 			controller: "ModalCtrl",
 			scope: $scope
 		});
-
 	}
 }])
 
@@ -108,4 +124,69 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap'])
 		$uibModalInstance.dismiss('cancel');
 	};
 })
+
+
+.factory('UserService', function($firebaseObject, $firebaseAuth, SystemService) {
+    var service = {};
+    var Auth = $firebaseAuth(SystemService.ref);
+    var usersRef = SystemService.ref.child('users');
+
+    var users = $firebaseObject(usersRef);
+    service.user = {};
+
+    service.signup = function (email, password, name) {
+        console.log("creating user " + email);
+
+        Auth.$createUser({
+                'email': email,
+                'password': password
+            })
+            .then(service.signin).then(function (authData) {
+                if (!service.user.avatar) {
+                    service.user.avatar = "img/no-pic.png";
+                }
+                if (!service.user.name) {
+                    service.user.name = name;
+                }
+
+                var newUserInfo = {
+                    'avatar': service.user.avatar,
+                    'name': service.user.name
+                };
+                users[authData.uid] = newUserInfo;
+
+                users.$save();
+
+                service.user.userId = authData.uid;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    service.signin = function (email, password) {
+        return Auth.$authWithPassword({
+            'email': email,
+            'password': password
+        });
+    };
+
+    service.logout = function () {
+        Auth.$unauth();
+    };
+
+    Auth.$onAuth(function (authData) {
+        if (authData) {
+            service.user.userId = authData.uid;
+        } else {
+            service.user.userId = undefined;
+        }
+    });
+
+    service.isLoggedIn = function() {
+        return service.userId !== undefined;
+    };
+
+    return service;
+});
 
