@@ -117,14 +117,27 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 }])
 
 // Controller for modal
-.controller('ModalCtrl', function($scope, $http, $uibModalInstance) {
+.controller('ModalCtrl', ['$scope', '$http', '$uibModalInstance', 'UserService', function($scope, $http, $uibModalInstance, $UserService) {
+
+	$scope.login = function() {
+		UserService.login($scope.loginEmail, $scope.loginPass)
+	}	
+
+	$scope.signup = function() {
+		UserService.signup($scope.signupEmail, $scope.signupPass, $scope.signupName)
+	}
 
 	//Closes the modal
 	$scope.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
 	};
-})
+}])
 
+.factory('SystemService', function() {
+    var service = {};
+    service.ref = new Firebase("https://fire-store.firebaseio.com");
+    return service;
+})
 
 .factory('UserService', function($firebaseObject, $firebaseAuth, SystemService) {
     var service = {};
