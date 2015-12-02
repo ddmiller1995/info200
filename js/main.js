@@ -49,6 +49,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 		});
 	}
 	$scope.login = function() {
+		
 		var modalInstance = $uibModal.open({
 			templateUrl: "partials/login.html",
 			controller: "ModalCtrl",
@@ -120,11 +121,19 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 .controller('ModalCtrl', ['$scope', '$http', '$uibModalInstance', 'UserService', function($scope, $http, $uibModalInstance, $UserService) {
 
 	$scope.login = function() {
-		UserService.login($scope.loginEmail, $scope.loginPass)
+		UserService.login($scope.loginEmail, $scope.loginPass);
+		console.log("Welcome back, " + UserService.user.name);
+
 	}	
 
 	$scope.signup = function() {
-		UserService.signup($scope.signupEmail, $scope.signupPass, $scope.signupName)
+		// var newUserInfo = {
+		// 	name: $scope.signupName,
+		// 	// more user info here
+		// };
+		console.log("here");
+		UserService.signup($scope.signupEmail, $scope.signupPass, $scope.signupName);
+		console.log("Welcome to Connect, " + UserService.user.name);
 	}
 
 	//Closes the modal
@@ -135,7 +144,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 .factory('SystemService', function() {
     var service = {};
-    service.ref = new Firebase("https://connect-info200.firebaseio.com/");
+    service.ref = new Firebase("https://connect-test-info200.firebaseio.com/");
     return service;
 })
 
@@ -155,15 +164,11 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
                 'password': password
             })
             .then(service.signin).then(function (authData) {
-                if (!service.user.avatar) {
-                    service.user.avatar = "img/no-pic.png";
-                }
                 if (!service.user.name) {
                     service.user.name = name;
                 }
 
                 var newUserInfo = {
-                    'avatar': service.user.avatar,
                     'name': service.user.name
                 };
                 users[authData.uid] = newUserInfo;
