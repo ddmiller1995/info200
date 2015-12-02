@@ -83,7 +83,7 @@ a:hover {
 	color          : #67911D;
 }
 
-#login {
+.controls {
 	float: right;
 }
 
@@ -111,9 +111,15 @@ a:hover {
 	color: white;
 }
 
-#welcome img {
-	height: 1em;
-	margin-right: 20px;
+#welcome h1 {
+	display: inline;
+}
+
+#welcome #logo {
+	height: 55px;
+	margin-right: 15px;
+	display: inline;
+	vertical-align: text-bottom;
 }
 
 

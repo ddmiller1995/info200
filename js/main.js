@@ -40,7 +40,8 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 })
 
-.controller('IndexCtrl', ['$scope', '$http', '$uibModal', function($scope, $http, $uibModal) {
+.controller('IndexCtrl', function($scope, $http, $uibModal, UserService) {
+	
 	$scope.signup = function() {
 		var modalInstance = $uibModal.open({
 			templateUrl: "partials/signup.html",
@@ -55,21 +56,29 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 			controller: "ModalCtrl",
 			scope: $scope
 		});
-	}	
-}])
+	}
+
+	$scope.logout = function() {
+		UserService.logout();
+	}
+
+	$scope.user = UserService.user;
+
+})
 
 // Controller for home page
-.controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('HomeCtrl', function($scope, $http, UserService) {
 
-}])
+
+})
 
 // Controller for about page
-.controller('AboutCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('AboutCtrl', function($scope, $http) {
 
-}])
+})
 
 // Controller for job listings page
-.controller('JobsCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('JobsCtrl', function($scope, $http) {
 
 	$scope.mode = "volunteer";
 	$scope.paid = [];
@@ -88,13 +97,13 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
  	});
 
 
-}])
+})
 
 // Controller for cart page
-.controller('FormCtrl', ['$scope', '$http', '$uibModal', function($scope, $http, $uibModal) {
+.controller('FormCtrl', function($scope, $http, $uibModal, UserService) {
 
 	$scope.mode = "paid";
-
+	$scope.user = UserService.user;
 
 	$scope.finish = function() {
 		var modalInstance = $uibModal.open({
@@ -103,10 +112,10 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 			scope: $scope
 		});
 	}
-}])
+})
 
 // Controller for bean detail pages
-.controller('DetailsCtrl', ['$scope', '$http', '$stateParams', '$filter', function($scope, $http, $stateParams, $filter) {
+.controller('DetailsCtrl', function($scope, $http, $stateParams, $filter) {
 
 	// Gets the details of the first job that matches the filter
 	$http.get('data/data.json').then(function(response) {
@@ -115,36 +124,39 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	   	}, true)[0]; //save the 0th result
  	});
 
-}])
+})
 
-// Controller for modal
-.controller('ModalCtrl', ['$scope', '$http', '$uibModalInstance', 'UserService', function($scope, $http, $uibModalInstance, $UserService) {
-
-	$scope.login = function() {
-		UserService.login($scope.loginEmail, $scope.loginPass);
-		console.log("Welcome back, " + UserService.user.name);
-
-	}	
+.controller('ModalCtrl', function($scope, $http, $uibModalInstance, UserService) {
 
 	$scope.signup = function() {
-		// var newUserInfo = {
-		// 	name: $scope.signupName,
-		// 	// more user info here
-		// };
+		UserService.signup($scope.newUserDetails);
+		$uibModalInstance.dismiss('cancel');
+	}
+
+	$scope.signin = function() {
 		console.log("here");
-		UserService.signup($scope.signupEmail, $scope.signupPass, $scope.signupName);
-		console.log("Welcome to Connect, " + UserService.user.name);
+		UserService.signin($scope.loginEmail, $scope.loginPass);
+		$uibModalInstance.dismiss('cancel');
 	}
 
 	//Closes the modal
-	$scope.cancel = function () {
+	$scope.cancel = function() {
 		$uibModalInstance.dismiss('cancel');
 	};
-}])
+})
 
 .factory('SystemService', function() {
     var service = {};
-    service.ref = new Firebase("https://connect-test-info200.firebaseio.com/");
+    service.ref = new Firebase("https://connect-test-info200.firebaseio.com");
+    var callbacks = [];
+    service.addCall = function(call) {
+        callbacks.push(call);
+    };
+    service.execCalls = function() {
+        callbacks.forEach(function(call) {
+            call();
+        });
+    };
     return service;
 })
 
@@ -156,33 +168,45 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
     var users = $firebaseObject(usersRef);
     service.user = {};
 
-    service.signup = function (email, password, name) {
-        console.log("creating user " + email);
+    service.getUser = function(id) {
+        return users[id];
+    };
+
+    service.signup = function (newUserDetails) {
+        console.log("creating user " + newUserDetails.name);
 
         Auth.$createUser({
-                'email': email,
-                'password': password
+                'email': newUserDetails.email,
+                'password': newUserDetails.pass
             })
-            .then(service.signin).then(function (authData) {
+            .then(service.signin(newUserDetails.email, newUserDetails.pass)).then(function (authData) {
+
                 if (!service.user.name) {
-                    service.user.name = name;
+                    service.user.name = newUserDetails.name;
                 }
 
-                var newUserInfo = {
-                    'name': service.user.name
+                if (!service.user.phone) {
+                    service.user.phone = newUserDetails.phone;
+                }
+
+                users[authData.uid] = {
+                    'name': service.user.name,
+                    'phone': service.user.phone
                 };
-                users[authData.uid] = newUserInfo;
 
                 users.$save();
 
                 service.user.userId = authData.uid;
+                console.log(service.user);
             })
             .catch(function (error) {
+            	service.error = error;
                 console.log(error);
             });
     };
 
     service.signin = function (email, password) {
+        console.log('signing in ' + email);
         return Auth.$authWithPassword({
             'email': email,
             'password': password
@@ -196,14 +220,25 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
     Auth.$onAuth(function (authData) {
         if (authData) {
             service.user.userId = authData.uid;
+            users.$loaded(function() {
+                service.user.name = users[authData.uid].name;
+            });
         } else {
             service.user.userId = undefined;
+            service.user.name = undefined;
         }
+        SystemService.execCalls();
     });
 
     service.isLoggedIn = function() {
-        return service.userId !== undefined;
+        return service.user.userId !== undefined;
     };
+
+    // service.requireLogin = function($location) {
+    //     if(!service.isLoggedIn()) {
+    //         $location.path("/user/login");
+    //     }
+    // };
 
     return service;
 });
