@@ -144,12 +144,12 @@ a:hover {
 
 /*===== Form Page =====*/
 
-#submit h2 {
+#submit-form h2 {
 	border-bottom: 2px solid #666666;
 	padding-bottom: 3px;
 }
 
-#submit button {
+#submit-form button {
 	display: block;
 	width: 200px;
 	height: 50px;
@@ -157,11 +157,11 @@ a:hover {
 	font-size: 24px;
 }
 
-#submit input[type=radio] {
+#submit-form input[type=radio] {
 	margin: 10px 5px 10px 10px;
 }
 
-#submit #start {
+#submit-form #start {
 	font-size: 20px;
 	margin: 20px 0px;
 }

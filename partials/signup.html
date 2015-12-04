@@ -1,6 +1,6 @@
 <div id="modal-main" class="text-center">	
 	<h1>Signup</h1>
-	<form>
+	<form name="signupForm">
 		<div class="form-group">
 	        <label for="email">Full Name:</label>
 	        <input type="text" name="name" ng-model="newUserDetails.name" required>
@@ -10,18 +10,18 @@
 	        <input type="email" name="email" ng-model="newUserDetails.email" required>
 	    </div>
 	   	<div class="form-group">
-	        <label for="pass">Phone Number:</label>
-	        <input type="text" name="pass" ng-model="newUserDetails.phone">
+	        <label for="phone">Phone Number:</label>
+	        <input type="tel" name="phone" ng-model="newUserDetails.phone">
 	    </div>
 	    <div class="form-group">
 	        <label for="pass">Password:</label>
 	        <input type="password" name="pass" ng-model="newUserDetails.pass" required>
 	    </div>
 		<div class="form-group">
-	        <label for="pass">Confirm Password:</label>
-	        <input type="password" name="pass" ng-model="newUserDetails.cpass" required>
+	        <label for="pass-confirm">Confirm Password:</label>
+	        <input type="password" name="pass-confirm" ng-model="newUserDetails.cpass" required>
 	    </div>
-	    <button class="btn btn-default" ng-click="signup()">Signup</button>
-	    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+	    <button class="btn btn-default" ng-click="pretendToAuthenticate()" ng-disabled="signupForm.$invalid">Signup <i ng-show="finished" class="fa fa-check"></i></button>
+	    <button class="btn btn-default" ng-click="cancel()">Close</button>
 	</form>
 </div>

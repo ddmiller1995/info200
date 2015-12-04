@@ -38,14 +38,16 @@
         <ul>
             <li><a ui-sref="home"><img src="img/logo2.png">Home</a></li>
             <li><a ui-sref="about">About Us</a></li>
+            <li><a ui-sref="help">Help</a></li>
             <li><a ui-sref="jobs">Find Opportunities</a></li>
             <li><a ui-sref="form">Find Workers</a></li>
-            <span ng-if="!user.userId" class="controls">
+            <span ng-if="!status.loggedIn" class="controls">
                 <li><button ng-click="signup()" class="btn btn-default">Signup</button></li>
                 <li><button ng-click="login()" class="btn btn-default">Login</button></li>
             </span>
-            <span ng-if="user.userId" class="controls">
-                <li><a href="">Welcome, {{user.name}}</a></li>
+            <span ng-if="status.loggedIn" class="controls">
+                <!--<li><a href="">Welcome, {{user.name}}</a></li>-->
+                <li><a ui-sref="myjobs">My Jobs</a></li>
                 <li><button ng-click="logout()" class="btn btn-default">Logout</button></li>
             </span>
         </ul>
