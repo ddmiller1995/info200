@@ -42,7 +42,12 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 			url: '/myjobs',
 			templateUrl: 'partials/myjobs.html',
 			controller: 'MyJobsCtrl'
-		});		
+		})        
+        .state('profile', {
+            url: '/profile',
+            templateUrl: 'partials/profile.html',
+            controller: 'ProfileCtrl'
+        });		
 	// Moves the user to the home page for any other valid url
 	$urlRouterProvider.otherwise('/');
 
@@ -167,6 +172,27 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 		}
 		console.log($scope.mySavedJobs);
  	});
+
+    $scope.removeSaved = function(id) {
+        for(var i = 0; i < $scope.mySavedJobs.length; i++) {
+            if($scope.mySavedJobs[i].id == id) {
+                $scope.mySavedJobs.splice(i, 1);
+            }
+        }
+    }
+
+    $scope.removePosted = function(id) {
+        for(var i = 0; i < $scope.myPostedJobs.length; i++) {
+            if($scope.myPostedJobs[i].id == id) {
+                $scope.myPostedJobs.splice(i, 1);
+            }
+        }
+    }
+})
+
+.controller('ProfileCtrl', function($scope, $http, BasicService) {
+
+
 })
 
 .controller('ModalCtrl', function($scope, $http, $uibModalInstance, UserService, BasicService) {
@@ -181,9 +207,17 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	// }
 
 	$scope.pretendToAuthenticate = function() {
-		for(var i = 0; i < 9999; i++) {}
-		BasicService.authenticate();
-		$scope.finished = true;
+		//for(var i = 0; i < 9999; i++) {}
+        BasicService.authenticate();
+        setTimeout(function() {
+            
+            setTimeout(function(){
+                $scope.cancel();
+            }, 2500);
+            $scope.finished = true;
+        }, 1000);
+
+        
 	}
 
 	//Closes the modal

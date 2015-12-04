@@ -1,12 +1,12 @@
 <div id="jobs-section" class="main container-fluid">
     <h1 style="display:inline-block">Select a job</h1>
     <div id="work-controls" class="form-inline pull-right">
-        <span id="work-options">
-            <input type="radio" name="choice" value="volunteer" ng-click="mode='volunteer'" checked>Volunteer
-            <input type="radio" name="choice" value="paid" ng-click="mode='paid'">Paid
-        </span>
-        <label for="search"><i class="fa fa-search"></i></label>
-        <input name="query" placeholder="Search" id="search" ng-model="searchQuery">
+
+            <label><input type="radio" name="choice" value="volunteer" ng-click="mode='volunteer'" checked>Volunteer</label>
+            <label><input type="radio" name="choice" value="paid" ng-click="mode='paid'">Paid</label>
+            <label for="search"><i class="fa fa-search"></i></label>
+            <input name="query" placeholder="Search" id="search" ng-model="searchQuery">
+
     </div>
 
     <table id="jobs" class="table">

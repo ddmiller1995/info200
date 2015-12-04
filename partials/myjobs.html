@@ -4,24 +4,30 @@
 
 	<table id="jobs" class="table">
         <tr>
-            <th class="col-md-4">Job Title</th>
-            <th class="col-md-3">Date of Job</th>
-            <th class="col-md-3">Payment</th>
+            <th>Job Title</th>
+            <th>Date of Job</th>
+            <th>Payment</th>
             <th ng-if="mode=='posted'" class="col-md-1">Edit</th>
+            <th>Poster Name</th>
+            <th>Poster Email</th> 
             <th class="col-md-1">Remove</th>
         </tr>
         <tr ng-if="mode=='saved'" ng-repeat="job in mySavedJobs">
             <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
             <td>{{job.date | date:'shortDate'}}</td>
             <td>{{job.payment}}</td>
-            <td ng-click="delete()"><i class="fa fa-times"></i></td>
+            <td>{{job.contact.name}}</td>
+            <td>{{job.contact.email}}</td>
+            <td ng-click="removeSaved(job.id)"><i class="fa fa-times"></i></td>
         </tr>
         <tr ng-if="mode=='posted'" ng-repeat="job in myPostedJobs">
             <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
             <td>{{job.date | date:'shortDate'}}</td>
 			<td>{{job.payment}}</td>
+            <td>{{job.contact.name}}</td>
+            <td>{{job.contact.email}}</td>
 			<td><i class="fa fa-pencil"></i></td>
-            <td ng-click="delete()"><i class="fa fa-times"></i></td>
+            <td ng-click="removePosted(job.id)"><i class="fa fa-times"></i></td>
         </tr>
     </table>
 
