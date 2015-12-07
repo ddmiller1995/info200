@@ -1,34 +1,51 @@
 <div id="jobs-section" class="main container-fluid">
     <h1 style="display:inline-block">Select a job</h1>
     <div id="work-controls" class="form-inline pull-right">
-
-            <label><input type="radio" name="choice" value="volunteer" ng-click="mode='volunteer'" checked>Volunteer</label>
-            <label><input type="radio" name="choice" value="paid" ng-click="mode='paid'">Paid</label>
             <label for="search"><i class="fa fa-search"></i></label>
             <input name="query" placeholder="Search" id="search" ng-model="searchQuery">
 
     </div>
 
-    <table id="jobs" class="table">
-        <tr>
-            <th class="col-md-2">Job Title</th>
-            <th class="col-md-1">Date of Job</th>
-            <th class="col-md-1">Category</th>
-            <th class="col-md-8">Description</th>
-            <th ng-if="mode=='paid'">Payment</th>
-        </tr>
-        <tr ng-if="mode=='paid'" ng-repeat="job in paid | filter:searchQuery">
-            <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
-            <td>{{job.date | date:'shortDate'}}</td>
-            <td>{{job.categories[0]}}</td>
-            <td>{{job.description}}</td>
-            <td>{{job.payment}}</td>
-        </tr>
-        <tr ng-if="mode=='volunteer'" ng-repeat="job in volunteer | filter:searchQuery">
-            <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
-            <td>{{job.date | date:'shortDate'}}</td>
-            <td>{{job.categories[0]}}</td>
-            <td>{{job.description}}</td>
-        </tr>
-    </table>
+    <div class="row">
+        <div id="filters" class="col-md-2">
+            <form>
+                <div class="form-group">
+                    <h3>Type</h3>
+                    <label><input type="radio" name="choice" value="volunteer" ng-click="mode='volunteer'" checked>Volunteer</label><br>
+                    <label><input type="radio" name="choice" value="paid" ng-click="mode='paid'">Paid</label>
+                </div>
+                <div class="form-group">
+                    <h3>Group Size</h3>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10">
+            <table id="jobs" class="table table-hover">
+                <tr>
+                    <th><span class="sort" ng-click="sortingCriteria='title'">Job Title <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="sortingCriteria='location'">Location <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="sortingCriteria='date'">Date of Job <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="sortingCriteria='count'">Required Workers <i class="fa fa-sort-desc"></i></span></th>
+                    <th>Category</th>
+                    <th ng-if="mode=='paid'">Payment</th>
+                </tr>
+                <tr ui-sref="details({id: job.id})" ng-if="mode=='paid'" ng-repeat="job in paid | orderBy:sortingCriteria | filter:searchQuery">
+                    <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
+                    <td>{{job.location}}</td>
+                    <td>{{job.date | date:'shortDate'}}</td>
+                    <td>{{group.count}}</td>
+                    <td>{{job.categories[0]}}</td>
+                    <td>{{job.payment}}</td>
+                </tr>
+                <tr ui-sref="details({id: job.id})" ng-if="mode=='volunteer'" ng-repeat="job in volunteer | orderBy:sortingCriteria | filter:searchQuery">
+                    <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
+                    <td>{{job.location}}</td>
+                    <td>{{job.date | date:'shortDate'}}</td>
+                    <td>{{job.count}}</td>
+                    <td>{{job.categories[0]}}</td>
+                    
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

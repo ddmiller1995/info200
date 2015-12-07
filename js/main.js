@@ -94,6 +94,9 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	$scope.paid = [];
 	$scope.volunteer = [];
 
+	$scope.sortingCriteria = "title";
+	$scope.searchQuery = "";
+
 	// Gets the data about the different jobs
 	$http.get('data/data.json').then(function(response) {
  		$scope.jobs = response.data;
@@ -149,10 +152,10 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 .controller('MyJobsCtrl', function($scope, $http, $filter, BasicService) {
 	$scope.mode = "saved";
+	$scope.status = BasicService;
 
 	var mySavedJobsIds = BasicService.mySavedJobs;
 	var myPostedJobsIds = BasicService.myPostedJobs;
-	console.log(mySavedJobsIds);
 
 	$scope.mySavedJobs = [];
 	$scope.myPostedJobs = [];
@@ -207,14 +210,11 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	// }
 
 	$scope.pretendToAuthenticate = function() {
-		//for(var i = 0; i < 9999; i++) {}
+		for(var i = 0; i < 9999; i++) {}
         BasicService.authenticate();
+    	$scope.finished = true;
         setTimeout(function() {
-            
-            setTimeout(function(){
-                $scope.cancel();
-            }, 2500);
-            $scope.finished = true;
+            $scope.cancel();
         }, 1000);
 
         

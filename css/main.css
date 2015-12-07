@@ -42,6 +42,7 @@ a:hover {
 	color: #3d5711;
 }
 
+
 /*==================================================*/
 /*	Navbar Styles									*/
 /*==================================================*/
@@ -199,6 +200,28 @@ a:hover {
 	margin-right: 5px;
 }
 
+#jobs-section .sort:hover {
+	cursor: pointer;
+}
+
+#filters {
+	border: 1px solid #DDDDDD;
+}
+
+#filters h3 {
+	font-weight: bold;
+	padding-bottom: 5px;
+	width: 90%;
+}
+
+#filters label {
+	font-weight: 300;
+}
+
+#filters input[type=radio] {
+	margin-right: 5px;
+}
+
 
 
 /*===== Job Details Page =====*/
@@ -215,6 +238,10 @@ a:hover {
 }
 
 /*===== My Jobs Page =====*/
+
+#myjobs-section #controls {
+	margin-bottom: 20px;
+}
 
 .fa-times:hover {
 	cursor: pointer;
