@@ -130,12 +130,15 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 	$scope.signup = function() {
 		UserService.signup($scope.newUserDetails);
+
+		console.log("2");
 		$uibModalInstance.dismiss('cancel');
 	}
 
 	$scope.signin = function() {
 		console.log("here");
 		UserService.signin($scope.loginEmail, $scope.loginPass);
+
 		$uibModalInstance.dismiss('cancel');
 	}
 
@@ -197,7 +200,8 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
                 users.$save();
 
                 service.user.userId = authData.uid;
-                console.log(service.user);
+                        console.log("1");
+                //console.log(service.user);
             })
             .catch(function (error) {
             	service.error = error;
