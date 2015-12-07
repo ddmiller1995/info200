@@ -42,6 +42,7 @@ a:hover {
 	color: #3d5711;
 }
 
+
 /*==================================================*/
 /*	Navbar Styles									*/
 /*==================================================*/
@@ -144,12 +145,12 @@ a:hover {
 
 /*===== Form Page =====*/
 
-#submit h2 {
+#submit-form h2 {
 	border-bottom: 2px solid #666666;
 	padding-bottom: 3px;
 }
 
-#submit button {
+#submit-form button {
 	display: block;
 	width: 200px;
 	height: 50px;
@@ -157,11 +158,11 @@ a:hover {
 	font-size: 24px;
 }
 
-#submit input[type=radio] {
+#submit-form input[type=radio] {
 	margin: 10px 5px 10px 10px;
 }
 
-#submit #start {
+#submit-form #start {
 	font-size: 20px;
 	margin: 20px 0px;
 }
@@ -189,17 +190,39 @@ a:hover {
 	margin-top: 20px;
 }
 
-#work-options {
-	padding-right: 20px;
-}
-
-#work-options input[type=radio] {
+#work-controls input[type=radio] {
 	margin-right: 10px;
+	margin-left: 20px;
 }
 
-#work-options input[value="paid"] {
-	margin-left: 5%; 
+#work-controls i {
+	margin-left: 30px;
+	margin-right: 5px;
 }
+
+#jobs-section .sort:hover {
+	cursor: pointer;
+}
+
+#filters {
+	border: 1px solid #DDDDDD;
+}
+
+#filters h3 {
+	font-weight: bold;
+	padding-bottom: 5px;
+	width: 90%;
+}
+
+#filters label {
+	font-weight: 300;
+}
+
+#filters input[type=radio] {
+	margin-right: 5px;
+}
+
+
 
 /*===== Job Details Page =====*/
 
@@ -212,4 +235,14 @@ a:hover {
 #details-section dd {
 	padding-left: 20px;
 	margin-bottom: 10px;
+}
+
+/*===== My Jobs Page =====*/
+
+#myjobs-section #controls {
+	margin-bottom: 20px;
+}
+
+.fa-times:hover {
+	cursor: pointer;
 }

@@ -1,0 +1,38 @@
+<div id="myjobs-section" class="main container-fluid">
+	<div id="controls">
+		<button class="btn btn-default btn-lg" ng-click="mode = 'saved'">My Saved Jobs</button>
+    	<button class="btn btn-default btn-lg" ng-click="mode = 'posted'">My Posted Jobs</button>
+	</div>
+
+	<table ng-if="status.loggedIn" id="jobs" class="table">
+        <tr>
+            <th>Job Title</th>
+            <th>Date of Job</th>
+            <th>Payment</th>
+            <th>Poster Name</th>
+            <th>Poster Email</th> 
+            <th class="col-md-1">Remove</th>
+        </tr>
+        <tr ng-if="mode=='saved'" ng-repeat="job in mySavedJobs">
+            <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
+            <td>{{job.date | date:'shortDate'}}</td>
+            <td>{{job.payment}}</td>
+            <td>{{job.contact.name}}</td>
+            <td>{{job.contact.email}}</td>
+            <td ng-click="removeSaved(job.id)"><i class="fa fa-times"></i></td>
+        </tr>
+        <tr ng-if="mode=='posted'" ng-repeat="job in myPostedJobs">
+            <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
+            <td>{{job.date | date:'shortDate'}}</td>
+			<td>{{job.payment}}</td>
+            <td>{{job.contact.name}}</td>
+            <td>{{job.contact.email}}</td>
+            <td ng-click="removePosted(job.id)"><i class="fa fa-times"></i></td>
+        </tr>
+    </table>
+    <p ng-show="mode === 'saved' && mySavedJobs.length == 0 && status.loggedIn">No jobs found</p>
+    <p ng-show="mode === 'posted' && myPostedJobs.length == 0 && status.loggedIn">No jobs found</p>
+    <p ng-show="!status.loggedIn">Please log in to see your jobs</p>
+
+
+</div>
