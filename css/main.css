@@ -252,3 +252,10 @@ a:hover {
 	padding-left: 20px;
 	margin-bottom: 10px;
 }
+
+/*===== About Us Page =====*/
+
+#group-photo {
+	width: 50%;
+	margin-bottom: 15px;
+}
