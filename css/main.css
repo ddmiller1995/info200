@@ -246,3 +246,9 @@ a:hover {
 .fa-times:hover {
 	cursor: pointer;
 }
+
+/*===== Profile Page =====*/
+#profile-section dd {
+	padding-left: 20px;
+	margin-bottom: 10px;
+}

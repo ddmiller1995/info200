@@ -210,12 +210,12 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	// }
 
 	$scope.pretendToAuthenticate = function() {
-		for(var i = 0; i < 9999; i++) {}
+		for(var i = 0; i < 10000; i++) {}
         BasicService.authenticate();
     	$scope.finished = true;
         setTimeout(function() {
             $scope.cancel();
-        }, 1000);
+        }, 1500);
 
 	}
 
@@ -304,13 +304,8 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
                 users.$save();
 
                 service.user.userId = authData.uid;
-<<<<<<< HEAD
-                        console.log("1");
-                //console.log(service.user);
-=======
-                console.log(service.user);
+
                 service.finished = true;
->>>>>>> 9dce9d80143a053589f104090d1b0733b894a8a5
             })
             .catch(function (error) {
             	service.error = error;

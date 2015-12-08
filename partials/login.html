@@ -1,6 +1,6 @@
 <div id="modal-main" class="text-center">
 	<h1>Login</h1>	
-	<form name="loginForm">
+	<form ng-show="!finished" name="loginForm">
 		<div class="form-group">
 	        <label for="email">Email:</label>
 	        <input type="email" name="email" ng-model="loginEmail" required>
@@ -12,4 +12,9 @@
 	    <button class="btn btn-default" ng-click="pretendToAuthenticate()" ng-disabled="loginForm.$invalid">Login <i ng-show="finished" class="fa fa-check"></i></button>
 	    <button class="btn btn-default" ng-click="cancel()">Close</button>
 	</form>
+	<div ng-show="finished">
+		<h2>Success!</h2>
+		<p>You've been logged into Connect</p>
+		<button class="btn btn-default" ng-click="cancel()">Close</button>
+	</div>
 </div>
