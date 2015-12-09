@@ -241,14 +241,12 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	$scope.finished = false;
 
 	$scope.pretendToAuthenticate = function(email) {
-		console.log("above" + email);
 		for(var i = 0; i < 10000; i++) {}
         BasicService.authenticate(email);
 
     	$scope.finished = true;
         setTimeout(function() {
             $scope.cancel();
-            console.log("below" + email);
         }, 1500);
 	}
 

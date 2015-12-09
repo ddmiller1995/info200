@@ -44,12 +44,12 @@
         <div class="col-md-10">
             <table id="jobs" class="table table-hover">
                 <tr>
-                    <th><span class="sort" ng-click="setSortingCriteria('title')">Job Title <i class="fa fa-sort-desc"></i></span></th>
-                    <th><span class="sort" ng-click="setSortingCriteria('location')">Zip Code <i class="fa fa-sort-desc"></i></span></th>
-                    <th><span class="sort" ng-click="setSortingCriteria('date')">Date of Job <i class="fa fa-sort-desc"></i></span></th>
-                    <th><span class="sort" ng-click="setSortingCriteria('count')">Required Workers <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="setSortingCriteria('title')">Job Title <i class="fa fa-sort"></i></span></th>
+                    <th><span class="sort" ng-click="setSortingCriteria('location')">Zip Code <i class="fa fa-sort"></i></span></th>
+                    <th><span class="sort" ng-click="setSortingCriteria('date')">Date of Job <i class="fa fa-sort"></i></span></th>
+                    <th><span class="sort" ng-click="setSortingCriteria('count')">Required Workers <i class="fa fa-sort"></i></span></th>
                     <th>Category</th>
-                    <th ng-if="mode=='paid'"><span class="sort" ng-click="setSortingCriteria('payment')">Payment <i class="fa fa-sort-desc"></i></span></th>
+                    <th ng-if="mode=='paid'"><span class="sort" ng-click="setSortingCriteria('payment')">Payment <i class="fa fa-sort"></i></span></th>
                 </tr>
                 <tr ui-sref="details({id: job.id})" ng-if="mode=='paid'" ng-repeat="job in paid | orderBy:sortingCriteria | filter:searchQuery">
                     <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
