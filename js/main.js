@@ -47,7 +47,12 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
             url: '/profile/{id}',
             templateUrl: 'partials/profile.html',
             controller: 'ProfileCtrl'
-        });		
+        })
+        .state('newProfile', {
+            url: '/new-profile',
+            templateUrl: 'partials/new-profile.html',
+            controller: 'ProfileCtrl'
+        });	;		
 	// Moves the user to the home page for any other valid url
 	$urlRouterProvider.otherwise('/');
 
@@ -63,7 +68,6 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 		});
 	}
 	$scope.login = function() {
-		
 		var modalInstance = $uibModal.open({
 			templateUrl: "partials/login.html",
 			controller: "ModalCtrl",
@@ -72,12 +76,10 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	}
 
 	$scope.logout = function() {
-		//UserService.logout();
 		BasicService.unAuthenticate();
 	}
 
 	$scope.status = BasicService;
-	//$scope.user = UserService.user;
 
 })
 
@@ -109,14 +111,21 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
  		}
  	});
 
-
+ 	$scope.setSortingCriteria = function(criteria) {
+	    if ($scope.sortingCriteria === criteria) {
+	        $scope.sortingCriteria = '-' + criteria;
+	    } else if ($scope.sortingCriteria === '-' + criteria) {
+	        $scope.sortingCriteria = criteria;
+	    } else {
+	        $scope.sortingCriteria = criteria;
+	    }
+	}
 })
 
 // Controller for cart page
 .controller('FormCtrl', function($scope, $http, $uibModal, BasicService) {
 
 	$scope.mode = "paid";
-	$scope.user = UserService.user;
 	$scope.status = BasicService;
 	$scope.finish = function() {
 		var modalInstance = $uibModal.open({
@@ -160,23 +169,27 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	$scope.mySavedJobs = [];
 	$scope.myPostedJobs = [];
 
+	$http.get('data/data.json').then(function(response) {
+		for(var i = 0; i < mySavedJobsIds.length; i++) {
+		   	var job = $filter('filter')(response.data, { 
+		    	id: mySavedJobsIds[i]
+		   	}, true)[0];
+		   	$scope.mySavedJobs.push(job);
+		}
+	});
+
 	// I am so sorry for this. Ran out of time and it works
-	var updateJob = function() {
+	$scope.updateJob = function() {
+		$scope.mode = "posted";
+		$scope.myPostedJobs = [];
 		if(BasicService.email != "") {
 			$http.get('data/data.json').then(function(response) {
-			   	for(var i = 0; i < mySavedJobsIds.length; i++) {
-				   	var job = $filter('filter')(response.data, { 
-				    	id: mySavedJobsIds[i]
-				   	}, true)[0];
-				   	$scope.mySavedJobs.push(job);
-				}
 				for(var i = 0; i < myPostedJobsIds.length; i++) {
 				   	var job = $filter('filter')(response.data, { 
 				    	id: myPostedJobsIds[i]
 				   	}, true)[0];
 				   	$scope.myPostedJobs.push(job);
 				}
-				console.log($scope.myPostedJobs);
  			});
 		} else {
 			setTimeout(function() {
@@ -186,7 +199,6 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 			
 		}
 	}
-	updateJob();
 	
 
     $scope.removeSaved = function(id) {
@@ -206,13 +218,21 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
     }
 })
 
-.controller('ProfileCtrl', function($scope, $http, $stateParams, $filter, BasicService) {
-	// Gets the details of the first job that matches the filter
+.controller('ProfileCtrl', function($scope, $http, $uibModal, $stateParams, $filter, BasicService) {
+
 	$http.get('data/users.json').then(function(response) {
-	   	$scope.user = $filter('filter')(response.data, { //filter the array
-	    	id: $stateParams.id //for items whose id property is targetId
-	   	}, true)[0]; //save the 0th result
+	   	$scope.user = $filter('filter')(response.data, { 
+	    	id: $stateParams.id 
+	   	}, true)[0]; 
 	});
+
+	$scope.finish = function() {
+		var modalInstance = $uibModal.open({
+			templateUrl: "partials/profile-submit.html",
+			controller: "ModalCtrl",
+			scope: $scope
+		});
+	}
 
 })
 
@@ -223,6 +243,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	$scope.pretendToAuthenticate = function(email) {
 		for(var i = 0; i < 10000; i++) {}
         BasicService.authenticate(email);
+    	console.log(email)
     	$scope.finished = true;
         setTimeout(function() {
             $scope.cancel();
@@ -240,6 +261,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	var service = {};
 	service.loggedIn = false;
 	service.email = "";
+	service.id = "na";
 	service.mySavedJobs = [];
 	service.myPostedJobs = [];
 
@@ -255,6 +277,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 			   	
 			}
 			if(user) {
+				service.id = user.id;
 				for(var i = 0; i < user.posted.length; i++) {
 					service.myPostedJobs.push(user.posted[i]);
 				}

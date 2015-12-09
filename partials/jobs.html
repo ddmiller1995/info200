@@ -26,12 +26,14 @@
                 </div>
                  <div class="form-group">
                     <h3>Workers Required</h3>
+                    <label><input type="radio" name="count" value="any" checked>Any</label><br>
                     <label><input type="radio" name="count" value="one">1</label><br>
                     <label><input type="radio" name="count" value="several">2-4</label><br>
                     <label><input type="radio" name="count" value="many">4+</label>
                 </div>
                  <div ng-if="mode=='paid'" class="form-group">
                     <h3>Payrate</h3>
+                    <label><input type="radio" name="payrate" value="any" checked>Any</label><br>
                     <label><input type="radio" name="payrate" value="low"><$10</label><br>
                     <label><input type="radio" name="payrate" value="lowmid">$10-$50</label><br>
                     <label><input type="radio" name="category" value="highmid">$50-$100</label><br>
@@ -42,18 +44,18 @@
         <div class="col-md-10">
             <table id="jobs" class="table table-hover">
                 <tr>
-                    <th><span class="sort" ng-click="sortingCriteria='title'">Job Title <i class="fa fa-sort-desc"></i></span></th>
-                    <th><span class="sort" ng-click="sortingCriteria='location'">Zip Code <i class="fa fa-sort-desc"></i></span></th>
-                    <th><span class="sort" ng-click="sortingCriteria='date'">Date of Job <i class="fa fa-sort-desc"></i></span></th>
-                    <th><span class="sort" ng-click="sortingCriteria='count'">Required Workers <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="setSortingCriteria('title')">Job Title <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="setSortingCriteria('location')">Zip Code <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="setSortingCriteria('date')">Date of Job <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="setSortingCriteria('count')">Required Workers <i class="fa fa-sort-desc"></i></span></th>
                     <th>Category</th>
-                    <th ng-if="mode=='paid'"><span class="sort" ng-click="sortingCriteria='payment'">Payment <i class="fa fa-sort-desc"></i></span></th>
+                    <th ng-if="mode=='paid'"><span class="sort" ng-click="setSortingCriteria('payment')">Payment <i class="fa fa-sort-desc"></i></span></th>
                 </tr>
                 <tr ui-sref="details({id: job.id})" ng-if="mode=='paid'" ng-repeat="job in paid | orderBy:sortingCriteria | filter:searchQuery">
                     <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
                     <td>{{job.location}}</td>
                     <td>{{job.date | date:'shortDate'}}</td>
-                    <td>{{group.count}}</td>
+                    <td>{{job.count}}</td>
                     <td>{{job.categories[0]}}</td>
                     <td>{{job.payment}}</td>
                 </tr>

@@ -1,7 +1,7 @@
 <div id="myjobs-section" class="main container-fluid">
 	<div id="controls">
 		<button class="btn btn-default btn-lg" ng-click="mode = 'saved'">My Saved Jobs</button>
-    	<button class="btn btn-default btn-lg" ng-click="mode = 'posted'">My Posted Jobs</button>
+    	<button class="btn btn-default btn-lg" ng-click="updateJob()">My Posted Jobs</button>
 	</div>
 
 	<table ng-if="status.loggedIn" id="jobs" class="table">

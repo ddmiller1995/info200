@@ -48,6 +48,8 @@
             <span ng-if="status.loggedIn" class="controls">
                 <!--<li><a href="">Welcome, {{user.name}}</a></li>-->
                 <li><a ui-sref="myjobs">My Jobs</a></li>
+                <li ng-if="status.id != 'na'"><a ui-sref="profile({id: status.id})">My Profile</a></li>
+                <li ng-if="status.id == 'na'"><a ui-sref="newProfile">Create your profile</a></li>
                 <li><button ng-click="logout()" ui-sref="home" class="btn btn-default">Logout</button></li>
             </span>
         </ul>

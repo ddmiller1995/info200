@@ -32,12 +32,12 @@
 	<div ng-if="user.id && user.reviews.length != 0" class="row">
 		<h2>Reviews</h2>
 		<div ng-repeat="review in user.reviews">
-			<h4>{{review.score}}/5</h4>
+			<p class="score">{{review.score}} out of 5</p>
 			<p><em>By {{review.author}} on {{review.date}}</em></p>
-			<p>{{review.content}}</p>
+			<p class="content">{{review.content}}</p>
 		</div>
 	</div>
 	<p ng-if="!user.id">This user has not set up their profile</p>
-	<p ng-if="user.id && user.reviews.length == 0">No one has review this user</p>
-	<button ui-sref="jobs" class="btn btn-default btn-lg">Back to job listings</button>
+	<p ng-if="user.id && user.reviews.length == 0">No one has reviewed this user</p>
+	<!--<button ui-sref="jobs" class="btn btn-default btn-lg">Back to job listings</button>-->
 </div>

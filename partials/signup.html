@@ -21,7 +21,7 @@
 	        <label for="pass-confirm">Confirm Password:</label>
 	        <input type="password" name="pass-confirm" ng-model="newUserDetails.cpass" required>
 	    </div>
-	    <button class="btn btn-default" ng-click="pretendToAuthenticate()" ng-disabled="signupForm.$invalid">Signup</button>
+	    <button class="btn btn-default" ng-click="pretendToAuthenticate(newUserDetails.email)" ng-disabled="signupForm.$invalid">Signup</button>
 	    <button class="btn btn-default" ng-click="cancel()">Close</button>
 	</form>
 	<div ng-show="finished">

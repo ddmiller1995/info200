@@ -143,6 +143,21 @@ a:hover {
 	margin-top: 40px;
 }
 
+#help {
+	text-align: center;
+	background-color:rgba(24, 28, 34, 0.85);
+	padding: 20px;
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	width: 15%;
+	
+}
+
+#help button {
+	font-size: 20px;
+}
+
 /*===== Form Page =====*/
 
 #submit-form h2 {
@@ -248,9 +263,20 @@ a:hover {
 }
 
 /*===== Profile Page =====*/
+
 #profile-section dd {
 	padding-left: 20px;
 	margin-bottom: 10px;
+}
+
+#profile-section .score {
+	font-weight: bold;
+	font-size: 24px;
+}
+
+#profile-section .content {
+	margin-bottom: 20px;
+	padding-left: 20px;
 }
 
 /*===== About Us Page =====*/
