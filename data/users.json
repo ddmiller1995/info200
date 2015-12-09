@@ -1,0 +1,55 @@
+[
+  {
+    "id": "1",
+    "name": "Wu Ling",
+    "email": "wling@uw.edu",
+    "phone": "123-456-1234",
+    "location": "98105",
+    "age": "19",
+    "skills": [
+      "Programming",
+      "Computers",
+      "Construction",
+      "Spear Fishing"
+    ],
+    "average": "2",
+    "reviews": [
+      {
+        "score": "2",
+        "author": "David Kim",
+        "date": "January 30th, 2015",
+        "content": "Wu worked 4 me 2 mow my dads lawn. was slow and ran over my shrubs. wuld not reccomend hiring."
+      }
+    ],
+    "posted": []
+  },
+  {
+    "id": "2",
+    "name": "Alaina Smalls",
+    "email": "smalls.alaina@campkorey.com",
+    "phone": "1-444-444-4444",
+    "location": "98105",
+    "age": "37",
+    "skills": [
+      "People oriented",
+      "Planning events",
+      "Works well with kids"
+    ],
+    "average": "4.5",
+    "reviews": [
+      {
+        "score": "5",
+        "author": "Mike Johnson",
+        "date": "November 12th, 2014",
+        "content": "Alaina Smalls is one of the most pleasant people to work with! As a volunteer at the Camp Korey Summer Camps, I can wholeheartedly say that I enjoyed working with Miss Smalls. Looking forward to volunteering at Camp Korey again this summer!"
+      },
+      {
+        "score": "4",
+        "author": "Jack Michaelson",
+        "date": "September 6th, 2014",
+        "content": "Worked at Camp Korey as a waiter for one of their events. Was fun, but it quite a bit of work and time."
+      }
+    ],
+    "posted": ["2"] 
+  }
+]

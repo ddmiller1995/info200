@@ -2,7 +2,7 @@
     <h1 style="display:inline-block">Select a job</h1>
     <div id="work-controls" class="form-inline pull-right">
             <label for="search"><i class="fa fa-search"></i></label>
-            <input name="query" placeholder="Search" id="search" ng-model="searchQuery">
+            <input name="query" id="search" ng-model="searchQuery" placeholder="Search by name, zip code, or any field">
 
     </div>
 
@@ -16,11 +16,13 @@
                 </div>
                 <div class="form-group">
                     <h3>Category</h3>
-                    <label><input type="radio" name="category" value="yardwork">Yard Work</label><br>
-                    <label><input type="radio" name="category" value="computer">Computer Help</label><br>
-                    <label><input type="radio" name="category" value="physical">Physical Labor</label><br>
-                    <label><input type="radio" name="category" value="children">Children</label><br>
-                    <label><input type="radio" name="category" value="food">Food Handling</label>
+                    <label><input type="radio" name="category" ng-click="searchQuery=''" checked>All</label><br>
+                    <label><input type="radio" name="category" ng-click="searchQuery='physical labor'">Physical Labor</label><br>
+                    <label><input type="radio" name="category" ng-click="searchQuery='technology help'">Technology Help</label><br>
+                    <label><input type="radio" name="category" ng-click="searchQuery='child care'">Child Care</label><br>
+                    <label><input type="radio" name="category" ng-click="searchQuery='pet care'">Pet Care</label><br>
+                    <label><input type="radio" name="category" ng-click="searchQuery='food handling'">Food Handling</label><br>
+                    <label><input type="radio" name="category" value="tutor" ng-click="searchQuery='tutoring'">Tutoring</label>
                 </div>
                  <div class="form-group">
                     <h3>Workers Required</h3>
@@ -41,11 +43,11 @@
             <table id="jobs" class="table table-hover">
                 <tr>
                     <th><span class="sort" ng-click="sortingCriteria='title'">Job Title <i class="fa fa-sort-desc"></i></span></th>
-                    <th><span class="sort" ng-click="sortingCriteria='location'">Location <i class="fa fa-sort-desc"></i></span></th>
+                    <th><span class="sort" ng-click="sortingCriteria='location'">Zip Code <i class="fa fa-sort-desc"></i></span></th>
                     <th><span class="sort" ng-click="sortingCriteria='date'">Date of Job <i class="fa fa-sort-desc"></i></span></th>
                     <th><span class="sort" ng-click="sortingCriteria='count'">Required Workers <i class="fa fa-sort-desc"></i></span></th>
                     <th>Category</th>
-                    <th ng-if="mode=='paid'">Payment</th>
+                    <th ng-if="mode=='paid'"><span class="sort" ng-click="sortingCriteria='payment'">Payment <i class="fa fa-sort-desc"></i></span></th>
                 </tr>
                 <tr ui-sref="details({id: job.id})" ng-if="mode=='paid'" ng-repeat="job in paid | orderBy:sortingCriteria | filter:searchQuery">
                     <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>

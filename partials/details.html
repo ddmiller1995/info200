@@ -23,7 +23,7 @@
             <h3>Contact Information</h3>
             <dl>
                 <dt>Name:</dt>
-                <dd>{{job.contact.name}}</dd>
+                <dd><a ui-sref="profile({id: job.contact.userId})">{{job.contact.name}}</a></dd>
                 <dt>Email</dt>
                 <dd>{{job.contact.email}}</dd>
                 <dt>Phone</dt>

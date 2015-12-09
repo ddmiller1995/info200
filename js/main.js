@@ -44,7 +44,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 			controller: 'MyJobsCtrl'
 		})        
         .state('profile', {
-            url: '/profile',
+            url: '/profile/{id}',
             templateUrl: 'partials/profile.html',
             controller: 'ProfileCtrl'
         });		
@@ -53,7 +53,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 })
 
-.controller('IndexCtrl', function($scope, $http, $uibModal, UserService, BasicService) {
+.controller('IndexCtrl', function($scope, $http, $uibModal, BasicService) {
 	
 	$scope.signup = function() {
 		var modalInstance = $uibModal.open({
@@ -113,7 +113,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 })
 
 // Controller for cart page
-.controller('FormCtrl', function($scope, $http, $uibModal, UserService, BasicService) {
+.controller('FormCtrl', function($scope, $http, $uibModal, BasicService) {
 
 	$scope.mode = "paid";
 	$scope.user = UserService.user;
@@ -160,21 +160,34 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	$scope.mySavedJobs = [];
 	$scope.myPostedJobs = [];
 
-	$http.get('data/data.json').then(function(response) {
-	   	for(var i = 0; i < mySavedJobsIds.length; i++) {
-		   	var job = $filter('filter')(response.data, { 
-		    	id: mySavedJobsIds[i]
-		   	}, true)[0];
-		   	$scope.mySavedJobs.push(job);
+	// I am so sorry for this. Ran out of time and it works
+	var updateJob = function() {
+		if(BasicService.email != "") {
+			$http.get('data/data.json').then(function(response) {
+			   	for(var i = 0; i < mySavedJobsIds.length; i++) {
+				   	var job = $filter('filter')(response.data, { 
+				    	id: mySavedJobsIds[i]
+				   	}, true)[0];
+				   	$scope.mySavedJobs.push(job);
+				}
+				for(var i = 0; i < myPostedJobsIds.length; i++) {
+				   	var job = $filter('filter')(response.data, { 
+				    	id: myPostedJobsIds[i]
+				   	}, true)[0];
+				   	$scope.myPostedJobs.push(job);
+				}
+				console.log($scope.myPostedJobs);
+ 			});
+		} else {
+			setTimeout(function() {
+				console.log("here");
+            	updateJob();
+        	}, 500);
+			
 		}
-		for(var i = 0; i < myPostedJobsIds.length; i++) {
-		   	var job = $filter('filter')(response.data, { 
-		    	id: mySavedPostedIds[i]
-		   	}, true)[0];
-		   	$scope.myPostedJobs.push(job);
-		}
-		console.log($scope.mySavedJobs);
- 	});
+	}
+	updateJob();
+	
 
     $scope.removeSaved = function(id) {
         for(var i = 0; i < $scope.mySavedJobs.length; i++) {
@@ -193,25 +206,23 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
     }
 })
 
-.controller('ProfileCtrl', function($scope, $http, BasicService) {
-
+.controller('ProfileCtrl', function($scope, $http, $stateParams, $filter, BasicService) {
+	// Gets the details of the first job that matches the filter
+	$http.get('data/users.json').then(function(response) {
+	   	$scope.user = $filter('filter')(response.data, { //filter the array
+	    	id: $stateParams.id //for items whose id property is targetId
+	   	}, true)[0]; //save the 0th result
+	});
 
 })
 
-.controller('ModalCtrl', function($scope, $http, $uibModalInstance, UserService, BasicService) {
+.controller('ModalCtrl', function($scope, $http, $uibModalInstance, BasicService) {
 
-	// $scope.signup = function() {
-	// 	UserService.signup($scope.newUserDetails);
-	// }
 	$scope.finished = false;
-	// $scope.signin = function() {
-	// 	console.log("here");
-	// 	UserService.signin($scope.loginEmail, $scope.loginPass);
-	// }
 
-	$scope.pretendToAuthenticate = function() {
+	$scope.pretendToAuthenticate = function(email) {
 		for(var i = 0; i < 10000; i++) {}
-        BasicService.authenticate();
+        BasicService.authenticate(email);
     	$scope.finished = true;
         setTimeout(function() {
             $scope.cancel();
@@ -225,18 +236,36 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	};
 })
 
-.factory('BasicService', function() {
+.factory('BasicService', function($http, $filter) {
 	var service = {};
 	service.loggedIn = false;
+	service.email = "";
 	service.mySavedJobs = [];
 	service.myPostedJobs = [];
 
-	service.authenticate = function(name) {
+	service.authenticate = function(email) {
 		service.loggedIn = true;
+		service.email = email;
+		$http.get('data/users.json').then(function(response) {
+			var user;
+		   	for(var i = 0; i < response.data.length; i++) {
+			   	user = $filter('filter')(response.data, { 
+			    	email: email
+			   	}, true)[0];
+			   	
+			}
+			if(user) {
+				for(var i = 0; i < user.posted.length; i++) {
+					service.myPostedJobs.push(user.posted[i]);
+				}
+			}
+		});
+		
 	}
 
 	service.unAuthenticate = function() {
 		service.loggedIn = false;
+		service.email = "";
 	}
 
 	service.save = function(id) {
@@ -249,106 +278,5 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 	return service;
 
-})
-
-.factory('SystemService', function() {
-    var service = {};
-    service.ref = new Firebase("https://connect-test-info200.firebaseio.com");
-    var callbacks = [];
-    service.addCall = function(call) {
-        callbacks.push(call);
-    };
-    service.execCalls = function() {
-        callbacks.forEach(function(call) {
-            call();
-        });
-    };
-    return service;
-})
-
-.factory('UserService', function($firebaseObject, $firebaseAuth, SystemService) {
-    var service = {};
-    var Auth = $firebaseAuth(SystemService.ref);
-    var usersRef = SystemService.ref.child('users');
-
-    var users = $firebaseObject(usersRef);
-    service.user = {};
-    service.finished = false;
-
-    service.getUser = function(id) {
-        return users[id];
-    };
-
-    service.signup = function (newUserDetails) {
-        console.log("creating user " + newUserDetails.name);
-
-        Auth.$createUser({
-                'email': newUserDetails.email,
-                'password': newUserDetails.pass
-            })
-            .then(service.signin(newUserDetails.email, newUserDetails.pass)).then(function (authData) {
-
-                if (!service.user.name) {
-                    service.user.name = newUserDetails.name;
-                }
-
-                if (!service.user.phone) {
-                    service.user.phone = newUserDetails.phone;
-                }
-
-                users[authData.uid] = {
-                    'name': service.user.name,
-                    'phone': service.user.phone
-                };
-
-                users.$save();
-
-                service.user.userId = authData.uid;
-
-                service.finished = true;
-            })
-            .catch(function (error) {
-            	service.error = error;
-                console.log(error);
-            });
-    };
-
-    service.signin = function (email, password) {
-        console.log('signing in ' + email);
-        
-        return Auth.$authWithPassword({
-            'email': email,
-            'password': password
-        });
-    };
-
-    service.logout = function () {
-        Auth.$unauth();
-    };
-
-    Auth.$onAuth(function (authData) {
-        if (authData) {
-            service.user.userId = authData.uid;
-            users.$loaded(function() {
-                service.user.name = users[authData.uid].name;
-            });
-        } else {
-            service.user.userId = undefined;
-            service.user.name = undefined;
-        }
-        SystemService.execCalls();
-    });
-
-    service.isLoggedIn = function() {
-        return service.user.userId !== undefined;
-    };
-
-    // service.requireLogin = function($location) {
-    //     if(!service.isLoggedIn()) {
-    //         $location.path("/user/login");
-    //     }
-    // };
-
-    return service;
 });
 

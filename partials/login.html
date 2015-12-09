@@ -9,7 +9,7 @@
 	        <label for="pass">Password:</label>
 	        <input type="password" name="pass" ng-model="loginPass" required>
 	    </div>
-	    <button class="btn btn-default" ng-click="pretendToAuthenticate()" ng-disabled="loginForm.$invalid">Login <i ng-show="finished" class="fa fa-check"></i></button>
+	    <button class="btn btn-default" ng-click="pretendToAuthenticate(loginEmail)" ng-disabled="loginForm.$invalid">Login <i ng-show="finished" class="fa fa-check"></i></button>
 	    <button class="btn btn-default" ng-click="cancel()">Close</button>
 	</form>
 	<div ng-show="finished">

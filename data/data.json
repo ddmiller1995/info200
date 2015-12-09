@@ -5,10 +5,11 @@
     "date": "11/2/14",
     "description": "Mow a lawn for a little old lady",
     "payment": "none",
-    "categories": ["Yard Work", "Physical Labor"],
+    "categories": ["Physical Labor"],
     "location": "98686",
     "count": "1",
     "contact": {
+      "userId": "na",
       "name": "Betsy O'Neil",
       "email": "betsy50@aol.com",
       "phone": "1-555-555-5555"
@@ -20,14 +21,25 @@
     "date": "10/20/2015",
     "description": "Help support a local charity that benefits children with life altering illneseses at the annual Grow Dinner. Help our event go smoothly by helping the chefs serve food",
     "payment": "none",
-    "categories": ["Physical Labor", "Food Handling", "Children"],
+    "categories": ["Physical Labor", "Food Handling", "Child Care"],
     "location": "98104",
     "count": "4",
     "contact": {
+      "userId": "2",
       "name": "Alaina Smalls",
       "email": "smalls.alaina@campkorey.com",
       "phone": "1-444-444-4444"
-    }
+    },
+    "interested": [
+        {
+          "id": "1",
+          "name": "Wu Ling"
+        },
+        {
+          "id": "na",
+          "name": "Bob Smith"
+        }
+    ]
   },
   {
     "id": "3",
@@ -39,6 +51,7 @@
     "location": "98105",
     "count": "8",
     "contact": {
+      "userId": "na",
       "name": "Melany Watkins",
       "email": "jesusisthesavior@comcast.net",
       "phone": "1-537-874-9680"
@@ -50,10 +63,11 @@
     "date": "1/1/2016",
     "description": "My computer no longer works and I don't know why. It simply won't boot up. I need it to do stuff.",
     "payment": "$100",
-    "categories": ["Computers", "IT"],
+    "categories": ["Technology Help"],
     "location": "98422",
     "count": "1",
     "contact": {
+      "userId": "na",
       "name": "John Simon",
       "email": "j.simon@gmail.com",
       "phone": "1-555-121-7878"

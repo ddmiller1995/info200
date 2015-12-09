@@ -188,11 +188,11 @@ a:hover {
 #work-controls {
 	font-size: 24px;
 	margin-top: 20px;
+	width: 35%;
 }
 
-#work-controls input[type=radio] {
-	margin-right: 10px;
-	margin-left: 20px;
+#work-controls input[name=query] {
+	width: 80%;
 }
 
 #work-controls i {

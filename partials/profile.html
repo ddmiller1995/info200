@@ -1,24 +1,43 @@
 <div id="profile-section" class="main container-fluid">
 	<h1>Profile</h1>
-	<dl>
-		<dt>Name:</dt>
-		<dd>Dakota Miller</dd>
-		<dt>Email:</dt>
-		<dd>ddm95@uw.edu</dd>
-		<dt>Phone:</dt>
-		<dd>360-798-4457</dd>
-		<dt>Location:</dt>
-		<dd>98105</dd>
-		<dt>Age:</dt>
-		<dd>19</dd>
-		<dt>Skills:</dt>
-		<dd>
-			<ul>
-				<li>Programming</li>
-				<li>Computers</li>
-				<li>Construction</li>
-				<li>Carpentry</li>
-			</ul>
-		</dd>
-	</dl>
+	<div ng-if="user.id" class="row">
+		<h2>Details</h2>
+		<div class="col-md-6">
+			<dl>
+				<dt>Name:</dt>
+				<dd>{{user.name}}</dd>
+				<dt>Email:</dt>
+				<dd>{{user.email}}</dd>
+				<dt>Phone:</dt>
+				<dd>{{user.phone}}</dd>
+				<dt>Zip Code:</dt>
+				<dd>{{user.location}}</dd>
+				<dt>Age:</dt>
+				<dd>{{user.age}}</dd>
+			</dl>
+		</div>
+		<div class="col-mid-6">
+			<dl>
+				<dt>Skills:</dt>
+				<dd>
+					<ul>
+						<li ng-repeat="skill in user.skills">{{skill}}</li>
+					</ul>
+				</dd>
+				<dt>Average Review Rating</dt>
+				<dd>{{user.average}}</dd>
+			</dl>
+		</div>
+	</div>
+	<div ng-if="user.id && user.reviews.length != 0" class="row">
+		<h2>Reviews</h2>
+		<div ng-repeat="review in user.reviews">
+			<h4>{{review.score}}/5</h4>
+			<p><em>By {{review.author}} on {{review.date}}</em></p>
+			<p>{{review.content}}</p>
+		</div>
+	</div>
+	<p ng-if="!user.id">This user has not set up their profile</p>
+	<p ng-if="user.id && user.reviews.length == 0">No one has review this user</p>
+	<button ui-sref="jobs" class="btn btn-default btn-lg">Back to job listings</button>
 </div>

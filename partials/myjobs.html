@@ -9,8 +9,9 @@
             <th>Job Title</th>
             <th>Date of Job</th>
             <th>Payment</th>
-            <th>Poster Name</th>
-            <th>Poster Email</th> 
+            <th ng-if="mode=='saved'">Poster Name</th>
+            <th ng-if="mode=='saved'">Poster Email</th> 
+            <th ng-if="mode=='posted'">Interested Users</th>
             <th class="col-md-1">Remove</th>
         </tr>
         <tr ng-if="mode=='saved'" ng-repeat="job in mySavedJobs">
@@ -25,8 +26,11 @@
             <td><a ui-sref="details({id: job.id})">{{job.title}}</a></td>
             <td>{{job.date | date:'shortDate'}}</td>
 			<td>{{job.payment}}</td>
-            <td>{{job.contact.name}}</td>
-            <td>{{job.contact.email}}</td>
+            <td>
+            	<ul>
+            		<li ng-repeat="person in job.interested"><a ui-sref="profile({id: person.id})">{{person.name}}</a></li>
+            	</ul>
+            </td>
             <td ng-click="removePosted(job.id)"><i class="fa fa-times"></i></td>
         </tr>
     </table>
