@@ -1,3 +1,9 @@
+/*==================================================*/
+/*	Name       : Dakota Miller						*/
+/*	Class      : INFO 200							*/
+/*	Description: Connect CSS						*/
+/*==================================================*/
+
 @import url(https://fonts.googleapis.com/css?family=Josefin+Slab:400,700);
 @import url(https://fonts.googleapis.com/css?family=Rosario:400,400italic);
 
@@ -18,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
 	font-weight: 700;
-	font-size: 48px;
+	font-size  : 48px;
 }
 
 h2 {
@@ -93,23 +99,23 @@ a:hover {
 /*==================================================*/
 
 .main {
-	width: 100%;
+	width           : 100%;
 	background-color: #EEEEEE;
-	margin: 0px auto;
-	min-height: 100vh;
-	padding: 80px 10% 0px;
+	margin          : 0px auto;
+	min-height      : 100vh;
+	padding         : 80px 10% 0px;
 }
 
 /*===== Welcome Page =====*/
 
 #welcome {
-	text-align: center;
+	text-align      : center;
 	background-color:rgba(24, 28, 34, 0.85);
-	box-shadow: 5px 5px 5px #222222;
-	padding: 40px 0px;
-	margin-top: 200px;
-	min-height: 400px;
-	color: white;
+	box-shadow      : 5px 5px 5px #222222;
+	padding         : 40px 0px;
+	margin-top      : 200px;
+	min-height      : 400px;
+	color           : white;
 }
 
 #welcome h1 {
@@ -117,41 +123,40 @@ a:hover {
 }
 
 #welcome #logo {
-	height: 55px;
-	margin-right: 15px;
-	display: inline;
+	height        : 55px;
+	margin-right  : 15px;
+	display       : inline;
 	vertical-align: text-bottom;
 }
 
 
 #welcome-background {
-	width: 100%;
-	height: 100%;
-	z-index: 0;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	background-image: url("../img/neighborhood1.jpg");
+	width            : 100%;
+	height           : 100%;
+	z-index          : 0;
+	position         : fixed;
+	top              : 0px;
+	left             : 0px;
+	background-image : url("../img/neighborhood1.jpg");
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size  : cover;
 }
 
 #welcome button {
-	width: 300px;
-	height: 75px;
-	font-size: 25px;
+	width     : 300px;
+	height    : 75px;
+	font-size : 25px;
 	margin-top: 40px;
 }
 
 #help {
-	text-align: center;
+	text-align      : center;
 	background-color:rgba(24, 28, 34, 0.85);
-	padding: 20px;
-	position: fixed;
-	bottom: 0px;
-	right: 0px;
-	width: 15%;
-	
+	padding         : 20px;
+	position        : fixed;
+	bottom          : 0px;
+	right           : 0px;
+	width           : 15%;
 }
 
 #help button {
@@ -161,15 +166,15 @@ a:hover {
 /*===== Form Page =====*/
 
 #submit-form h2 {
-	border-bottom: 2px solid #666666;
+	border-bottom : 2px solid #666666;
 	padding-bottom: 3px;
 }
 
 #submit-form button {
-	display: block;
-	width: 200px;
-	height: 50px;
-	margin: 10px auto;
+	display  : block;
+	width    : 200px;
+	height   : 50px;
+	margin   : 10px auto;
 	font-size: 24px;
 }
 
@@ -179,18 +184,18 @@ a:hover {
 
 #submit-form #start {
 	font-size: 20px;
-	margin: 20px 0px;
+	margin   : 20px 0px;
 }
 
 #description {
 	display: block;
-	width: 100%;
-	height: 150px;
+	width  : 100%;
+	height : 150px;
 }
 
 #description-section {
-	width: 60%;
-	margin: 20px auto;
+	width  : 60%;
+	margin : 20px auto;
 	padding: 20px;
 }
 
@@ -198,12 +203,19 @@ a:hover {
 	padding: 20px;
 }
 
+#start .form-group {
+	display       : inline-block;
+	vertical-align: -60%;
+	margin-left   : 25px;
+	margin-bottom : 0px;
+}
+
 /*===== Jobs Page =====*/
 
 #work-controls {
-	font-size: 24px;
+	font-size : 24px;
 	margin-top: 20px;
-	width: 35%;
+	width     : 35%;
 }
 
 #work-controls input[name=query] {
@@ -211,7 +223,7 @@ a:hover {
 }
 
 #work-controls i {
-	margin-left: 30px;
+	margin-left : 30px;
 	margin-right: 5px;
 }
 
@@ -224,9 +236,9 @@ a:hover {
 }
 
 #filters h3 {
-	font-weight: bold;
+	font-weight   : bold;
 	padding-bottom: 5px;
-	width: 90%;
+	width         : 90%;
 }
 
 #filters label {
@@ -237,18 +249,16 @@ a:hover {
 	margin-right: 5px;
 }
 
-
-
 /*===== Job Details Page =====*/
 
 #details-section h1 {
-	border-bottom: 2px solid #333333;
+	border-bottom : 2px solid #333333;
 	padding-bottom: 3px;
-	display: inline-block;
+	display       : inline-block;
 }
 
 #details-section dd {
-	padding-left: 20px;
+	padding-left : 20px;
 	margin-bottom: 10px;
 }
 
@@ -265,23 +275,23 @@ a:hover {
 /*===== Profile Page =====*/
 
 #profile-section dd {
-	padding-left: 20px;
+	padding-left : 20px;
 	margin-bottom: 10px;
 }
 
 #profile-section .score {
 	font-weight: bold;
-	font-size: 24px;
+	font-size  : 24px;
 }
 
 #profile-section .content {
 	margin-bottom: 20px;
-	padding-left: 20px;
+	padding-left : 20px;
 }
 
 /*===== About Us Page =====*/
 
 #group-photo {
-	width: 50%;
+	width        : 50%;
 	margin-bottom: 15px;
 }

@@ -1,7 +1,7 @@
 <!-- 
     Name: Dakota Miller
     Class: INFO 200
-    Description: HTML for "Connect" project
+    Description: Index Page for "Connect" project
 -->
 
 <!DOCTYPE html>
@@ -13,11 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- page information -->
-    <meta name="description" content="">
+    <meta name="description" content="This website is designed to connect workers with people hiring, both in the volunteer and paid spheres.">
     <meta name="author" content="Dakota Miller">
     <title>Connect</title>
 
-    <link rel="icon" href="img/logo2.png">
+    <link rel="icon" href="img/logo.png">
 
     <!-- Bootstrap Stylesheet -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -36,7 +36,7 @@
     
     <nav id="navbar">
         <ul>
-            <li><a ui-sref="home"><img src="img/logo2.png">Home</a></li>
+            <li><a ui-sref="home"><img src="img/logo.png">Home</a></li>
             <li><a ui-sref="about">About Us</a></li>
             <li><a ui-sref="help">Help</a></li>
             <li><a ui-sref="jobs">Find Opportunities</a></li>
@@ -46,7 +46,6 @@
                 <li><button ng-click="signup()" class="btn btn-default">Signup</button></li>
             </span>
             <span ng-if="status.loggedIn" class="controls">
-                <!--<li><a href="">Welcome, {{user.name}}</a></li>-->
                 <li><a ui-sref="myjobs">My Jobs</a></li>
                 <li ng-if="status.id != 'na'"><a ui-sref="profile({id: status.id})">My Profile</a></li>
                 <li ng-if="status.id == 'na'"><a ui-sref="newProfile">Create your profile</a></li>

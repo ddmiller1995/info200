@@ -60,6 +60,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 .controller('IndexCtrl', function($scope, $http, $uibModal, BasicService) {
 	
+	// Opens the signup modal
 	$scope.signup = function() {
 		var modalInstance = $uibModal.open({
 			templateUrl: "partials/signup.html",
@@ -67,6 +68,8 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 			scope: $scope
 		});
 	}
+
+	// Opens the login modal
 	$scope.login = function() {
 		var modalInstance = $uibModal.open({
 			templateUrl: "partials/login.html",
@@ -111,6 +114,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
  		}
  	});
 
+	// Switches between ascending or descending sorting for a criteria
  	$scope.setSortingCriteria = function(criteria) {
 	    if ($scope.sortingCriteria === criteria) {
 	        $scope.sortingCriteria = '-' + criteria;
@@ -122,11 +126,13 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	}
 })
 
-// Controller for cart page
+// Controller for form page
 .controller('FormCtrl', function($scope, $http, $uibModal, BasicService) {
 
 	$scope.mode = "paid";
 	$scope.status = BasicService;
+
+	// Opens the confirmation modal
 	$scope.finish = function() {
 		var modalInstance = $uibModal.open({
 			templateUrl: "partials/modal.html",
@@ -136,7 +142,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	}
 })
 
-// Controller for bean detail pages
+// Controller for job detail pages
 .controller('DetailsCtrl', function($scope, $http, $stateParams, $filter, BasicService) {
 
 	// Gets the details of the first job that matches the filter
@@ -150,15 +156,16 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
  	$scope.message = "Save Job";
  	$scope.finished = false;
 
+ 	// Saves the current job ID to the service
  	$scope.save = function() {
  		BasicService.save($scope.job.id);
  		$scope.message = "Saved!"
  		$scope.finished = true;
 
  	}
-
 })
 
+// Controller for the myjobs page
 .controller('MyJobsCtrl', function($scope, $http, $filter, BasicService) {
 	$scope.mode = "saved";
 	$scope.status = BasicService;
@@ -169,6 +176,8 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	$scope.mySavedJobs = [];
 	$scope.myPostedJobs = [];
 
+	// Gets the saved jobs from the JSON file using the jobs
+	// marked as saved in the service
 	$http.get('data/data.json').then(function(response) {
 		for(var i = 0; i < mySavedJobsIds.length; i++) {
 		   	var job = $filter('filter')(response.data, { 
@@ -179,6 +188,8 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	});
 
 	// I am so sorry for this. Ran out of time and it works
+	// It uses recursion to wait until the BasicService's asynchronous function
+	// is done and then gets the posted jobs from the JSON 
 	$scope.updateJob = function() {
 		$scope.mode = "posted";
 		$scope.myPostedJobs = [];
@@ -193,14 +204,12 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
  			});
 		} else {
 			setTimeout(function() {
-				console.log("here");
             	updateJob();
         	}, 500);
 			
 		}
 	}
 	
-
     $scope.removeSaved = function(id) {
         for(var i = 0; i < $scope.mySavedJobs.length; i++) {
             if($scope.mySavedJobs[i].id == id) {
@@ -218,14 +227,17 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
     }
 })
 
+// Controller for the profile page
 .controller('ProfileCtrl', function($scope, $http, $uibModal, $stateParams, $filter, BasicService) {
 
+	// Gets profile data from the JSON for the current user
 	$http.get('data/users.json').then(function(response) {
 	   	$scope.user = $filter('filter')(response.data, { 
 	    	id: $stateParams.id 
 	   	}, true)[0]; 
 	});
 
+	// Opens the confirmation modal when the profile creation form is submitted
 	$scope.finish = function() {
 		var modalInstance = $uibModal.open({
 			templateUrl: "partials/profile-submit.html",
@@ -236,14 +248,19 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 
 })
 
+// Controller for all the modals
 .controller('ModalCtrl', function($scope, $http, $uibModalInstance, BasicService) {
 
 	$scope.finished = false;
 
+	// We don't actually have functional backend authentication for the demo site
+	// Instead, the site saves the email and id until it is refreshed
 	$scope.pretendToAuthenticate = function(email) {
+		// Gives the impression that the site is working on login
 		for(var i = 0; i < 10000; i++) {}
         BasicService.authenticate(email);
 
+    	// Displays a confirmation message, then waits and closes the modal
     	$scope.finished = true;
         setTimeout(function() {
             $scope.cancel();
@@ -256,6 +273,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	};
 })
 
+// This service stores temporary data about the current user
 .factory('BasicService', function($http, $filter) {
 	var service = {};
 	service.loggedIn = false;
@@ -267,6 +285,8 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	service.authenticate = function(email) {
 		service.loggedIn = true;
 		service.email = email;
+		// We have two sample users, this checks if the current email matches 
+		// one of those accounts and then gets their data
 		$http.get('data/users.json').then(function(response) {
 			var user;
 		   	for(var i = 0; i < response.data.length; i++) {
@@ -275,6 +295,7 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 			   	}, true)[0];
 			   	
 			}
+			// If we matched one of our users, loads their posted jobs list
 			if(user) {
 				service.id = user.id;
 				for(var i = 0; i < user.posted.length; i++) {
@@ -299,6 +320,4 @@ angular.module('ConnectApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireba
 	}
 
 	return service;
-
 });
-

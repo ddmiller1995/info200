@@ -1,13 +1,20 @@
+<!-- 
+    Name: Dakota Miller
+    Class: INFO 200
+    Description: Listing Creation Form Page for "Connect" project
+-->
+
 <div class="main container-fluid">
     <h1>Create your listing</h1>
 
-    <form name="listingForm" ng-if="status.loggedIn" id="submit-form">
+    <form ng-if="status.loggedIn" name="listingForm"  id="submit-form">
         <div class="row" id="start">
             <label for="title">Title:</label>
             <input type="text" name="title" id="title" required>
-
-            <input type="radio" name="choice" value="volunteer" ng-click="mode = 'volunteer'">Volunteer
-            <input type="radio" name="choice" value="paid" ng-click="mode = 'paid'" checked>Paid
+            <div class="form-group">
+                <input type="radio" name="choice" value="volunteer" ng-click="mode = 'volunteer'">Volunteer<br>
+                <input type="radio" name="choice" value="paid" ng-click="mode = 'paid'" checked>Paid
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -58,7 +65,7 @@
             </div>
         </div>
         <div class="form-group" id="description-section">
-            <h2>Description:</h2>
+            <h2>Description</h2>
             <textarea id="description" name="description" required></textarea>
         </div>
         <button class="btn btn-default btn-large" id="submit" ng-click="finish()" ng-disabled="listingForm.$invalid">Submit</button>

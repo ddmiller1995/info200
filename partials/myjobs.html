@@ -1,3 +1,9 @@
+<!-- 
+    Name: Dakota Miller
+    Class: INFO 200
+    Description: List of user's saved or posted jobs for "Connect" project
+-->
+
 <div id="myjobs-section" class="main container-fluid">
 	<div id="controls">
 		<button class="btn btn-default btn-lg" ng-click="mode = 'saved'">My Saved Jobs</button>
@@ -37,6 +43,4 @@
     <p ng-show="mode === 'saved' && mySavedJobs.length == 0 && status.loggedIn">No jobs found</p>
     <p ng-show="mode === 'posted' && myPostedJobs.length == 0 && status.loggedIn">No jobs found</p>
     <p ng-show="!status.loggedIn">Please log in to see your jobs</p>
-
-
 </div>
